@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="event" type="eventDeclaration" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueEventName">
+            <xs:annotation>
+                <xs:documentation>
+                    Event name must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="event" />
+            <xs:field xpath="@name" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="eventDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Event declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="fields" type="fieldsType" minOccurs="1" maxOccurs="1" />
+            <xs:element name="rules" type="rulesType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="processors" type="processorsType" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="name" type="eventName" use="required" />
+        <xs:attribute name="parent" type="eventName" use="optional" />
+        <xs:attribute name="destination" type="xs:string" use="optional" />
+        <xs:attribute name="priority" type="xs:boolean" default="false" />
+    </xs:complexType>
+
+    <xs:complexType name="fieldsType">
+        <xs:sequence>
+            <xs:element name="field" type="fieldType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="fieldType">
+        <xs:annotation>
+            <xs:documentation>
+                Field declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="name" type="fieldName" use="required" />
+        <xs:attribute name="converter" type="converterName" use="optional" />
+    </xs:complexType>
+
+    <xs:complexType name="rulesType">
+        <xs:sequence>
+            <xs:element name="rule" type="ruleType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ruleType">
+        <xs:annotation>
+            <xs:documentation>
+                Rule declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="field" />
+            <xs:element name="operator" />
+            <xs:element name="value" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="processorsType">
+        <xs:sequence>
+            <xs:element name="processor" type="processorType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="processorType">
+        <xs:annotation>
+            <xs:documentation>
+                Processor declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="class" type="processorName" use="required" />
+        <xs:attribute name="priority" type="xs:integer" use="optional" />
+    </xs:complexType>
+
+    <xs:simpleType name="eventName">
+        <xs:annotation>
+            <xs:documentation>
+                Event name can contain only [a-zA-Z0-9_.].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\.]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="fieldName">
+        <xs:annotation>
+            <xs:documentation>
+                Field name can either contain only [a-zA-Z0-9_-.[]] or be set to *.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\-\.\[\]]+|\*" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="processorName">
+        <xs:annotation>
+            <xs:documentation>
+                Processor name can contain only [a-zA-Z0-9_\].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\\]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="converterName">
+        <xs:annotation>
+            <xs:documentation>
+                Converter name can contain only [a-zA-Z0-9_\].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\\]+" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

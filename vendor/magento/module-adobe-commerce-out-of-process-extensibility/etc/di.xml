@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ *************************************************************************
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Converter\ClassToArrayConverterInterface" type="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Converter\ClassToArrayConverter" />
+    <preference for="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Converter\EventCodeConverterInterface" type="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Converter\EventCodeConverter" />
+    <preference for="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\CollectorInterface" type="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\CompositeCollector" />
+    <preference for="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\AggregatedEventListInterface" type="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\AggregatedEventList" />
+    <type name="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\CompositeCollector">
+        <arguments>
+            <argument name="collectors" xsi:type="array">
+                <item name="apiServiceCollector" xsi:type="object">Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ApiServiceCollector</item>
+                <item name="resourceModelCollector" xsi:type="object">Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ResourceModelCollector</item>
+                <item name="observerEventsCollector" xsi:type="object">Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ObserverEventsCollector</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ObserverEventsCollector">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ApiServiceCollector">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ResourceModelCollector">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Generator\ModuleGenerator">
+        <arguments>
+            <argument name="templateEngine" xsi:type="object">Magento\Framework\View\TemplateEngine\Php</argument>
+        </arguments>
+    </type>
+</config>

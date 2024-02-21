@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Framework\Escaper;
+use Magento\AdobeCommerceEventsClient\Block\Adminhtml\System\Config\TestConnectionButton;
+
+/** @var Escaper $escaper */
+/** @var TestConnectionButton $block */
+?>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $('#test_connection').click(function() {
+            const successMessage = "Successfully sent a test event to the configured provider.";
+            const failureMessage = "Failed to connect. See logs for details.";
+            $.ajax({
+                url: '<?= $escaper->escapeUrl($block->getAjaxUrl()) ?>',
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    if (result.status === 200) {
+                        $('#message .message-text').text(successMessage);
+                        $('#message').addClass('message message-success success').show();
+                    } else {
+                        $('#message .message-text').text(failureMessage);
+                        $('#message').addClass('message message-error error').show();
+                    }
+                    $('#test_connection').prop('disabled', true);
+                },
+                error: function () {
+                    $('#message .message-text').text(failureMessage);
+                    $('#message').addClass('message message-error error').show();
+                }
+            });
+
+            // Prevent sending of multiple test messages.
+            $('#test_connection').prop('disabled', true);
+        });
+
+        $('#adobe_io_events_integration').on('keyup change', function() {
+            $('#test_connection').prop('disabled', true);
+            const buttonInfo = $('#button-info');
+            if (!buttonInfo.find('p.note').length) {
+                buttonInfo.append(
+                    '<p class="note"><span>Save your configuration before testing the connection.</span></p>'
+                );
+            }
+        });
+    });
+</script>
+
+<?= $block->getButtonHtml() ?>
+<div id="button-info">
+<?php if ($block->isButtonDisabled()): ?>
+    <p class="note"><span>Complete all fields in the "General configuration" section to test the connection.</span></p>
+<?php else: ?>
+    <div id="message" style="display: none;">
+        <div class="message-text"></div>
+    </div>
+<?php endif; ?>
+</div>
