@@ -19,7 +19,9 @@
     "require": {
         "magento/product-enterprise-edition": "2.4.6-p4",
         "magento/composer-dependency-version-audit-plugin": "~0.1",
-        "magento/composer-root-update-plugin": "~2.0"
+        "magento/composer-root-update-plugin": "~2.0",
+        "commerce-rs-bundle/module-test-module": "*",
+        "commerce-rs-bundle/module-test-module-two": "*"
     },
     "autoload": {
         "exclude-from-classmap": [
@@ -79,6 +81,10 @@
         {
             "type": "composer",
             "url": "https://repo.magento.com/"
+        },        
+        {
+            "type": "vcs",
+            "url": "https://github.com/crantron/commerce-rs-bundle.git"
         }
     ],
     "extra": {
