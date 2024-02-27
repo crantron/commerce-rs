@@ -20,8 +20,8 @@
         "magento/product-enterprise-edition": "2.4.6-p4",
         "magento/composer-dependency-version-audit-plugin": "~0.1",
         "magento/composer-root-update-plugin": "~2.0",
-        "commerce-rs-bundle/module-test-module": "^8.4",
-        "commerce-rs-bundle/module-test-module-two": "^8.4"
+        "commerce-rs-bundle/module-test-module": "^8.5",
+        "commerce-rs-bundle/module-test-module-two": "^8.5"
     },
     "autoload": {
         "exclude-from-classmap": [
