@@ -1,1 +1,0 @@
-magento/module-adobe-io-events-client

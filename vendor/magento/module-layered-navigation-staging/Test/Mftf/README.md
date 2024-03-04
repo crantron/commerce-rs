@@ -1,3 +1,0 @@
-# Layered Navigation Staging Functional Tests
-
-The Functional Test Module for **Magento Layered Navigation Staging** module.

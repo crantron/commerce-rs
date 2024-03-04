@@ -1,7 +1,0 @@
-{
-    "magento_reward_salesrule": {
-        "constraint": {
-            "MAGENTO_REWARD_SALESRULE_RULE_ID_SALESRULE_ROW_ID": true
-        }
-    }
-}

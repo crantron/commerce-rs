@@ -1,3 +1,0 @@
-# Support Functional Tests
-
-The Functional Test Module for **Magento Support** module.

@@ -1,8 +1,0 @@
-{
-    "cataloginventory_stock_item": {
-        "constraint": {
-            "CATINV_STOCK_ITEM_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true,
-            "CATINV_STOCK_ITEM_PRD_ID_SEQUENCE_PRD_SEQUENCE_VAL": true
-        }
-    }
-}
