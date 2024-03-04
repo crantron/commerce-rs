@@ -1,1 +1,0 @@
-Magento\CustomerCustomAttributes\Block\Adminhtml\Customer\ValidationMessages
